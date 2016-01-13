@@ -7,13 +7,16 @@ import { Buip } from '../../../index';
 describe('Buip', function() {
 
     let proposal;
+    let currentTimestamp;
 
     beforeEach(function() {
 
+        currentTimestamp = Math.floor(Date.now() / 1000);
         proposal = new Buip({
             id: 1,
             title: 'Test BUIP: Please ignore',
-            text: '*Insert BUIP here*'
+            text: '*Insert BUIP here*',
+            submissionTimestamp: currentTimestamp
         });
 
     });
@@ -142,13 +145,65 @@ describe('Buip', function() {
 
     });
 
+    describe('#submissionTimestamp', function() {
+
+        it('should return the submissionTimestamp', function() {
+            assert.strictEqual(proposal.submissionTimestamp, currentTimestamp);
+        });
+
+        it('should require a submissionTimestamp', function() {
+            assert.throws(
+                function() {
+                    proposal.submissionTimestamp = undefined;
+                },
+                Error
+            );
+        });
+
+        it('should require an integer', function() {
+            assert.throws(
+                function() {
+                    proposal.submissionTimestamp = currentTimestamp + 0.5;
+                },
+                Error
+            );
+        });
+
+        it('should not accept a number less than 1231006505', function() {
+            proposal.submissionTimestamp = 1231006505;
+            assert.throws(
+                function() {
+                    proposal.id = 1231006505 - 1;
+                },
+                Error
+            );
+        });
+
+        it('should not accept a timestamp too far into the future', function() {
+            proposal.submissionTimestamp = currentTimestamp + 30;
+            assert.throws(
+                function() {
+                    proposal.submissionTimestamp = currentTimestamp + 90;
+                },
+                Error
+            );
+        });
+
+        it('should be able to change the submissionTimestamp', function() {
+            proposal.submissionTimestamp = currentTimestamp - 5;
+            assert.strictEqual(proposal.submissionTimestamp, currentTimestamp - 5);
+        });
+
+    });
+
     describe('#toJSON', function() {
 
         it('should convert the BUIP to a JSON object', function() {
             assert.deepEqual(proposal.toJSON(), {
                 id: 1,
                 title: 'Test BUIP: Please ignore',
-                text: '*Insert BUIP here*'
+                text: '*Insert BUIP here*',
+                submissionTimestamp: currentTimestamp
             });
         });
 
@@ -160,11 +215,13 @@ describe('Buip', function() {
             proposal = Buip.fromJSON({
                 id: 2,
                 title: 'Test BUIP 2: Please ignore',
-                text: '*Insert BUIP 2 here*'
+                text: '*Insert BUIP 2 here*',
+                submissionTimestamp: currentTimestamp - 10
             });
             assert.strictEqual(proposal.id, 2);
             assert.strictEqual(proposal.title, 'Test BUIP 2: Please ignore');
             assert.strictEqual(proposal.text, '*Insert BUIP 2 here*');
+            assert.strictEqual(proposal.submissionTimestamp, currentTimestamp - 10);
         });
 
     });

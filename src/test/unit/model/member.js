@@ -7,10 +7,11 @@ import { Member } from '../../../index';
 describe('Member', function() {
 
     let alice;
-    let currentTimestamp = Math.floor(Date.now() / 1000);
+    let currentTimestamp;
 
     beforeEach(function() {
 
+        currentTimestamp = Math.floor(Date.now() / 1000);
         alice = new Member({
             id: 1,
             name: 'Alice',
