@@ -1,21 +1,26 @@
 'use strict';
 
-import Identifiable from './identifiable';
+import { validateId, validateTitle, validateText } from '../lib/validator';
 
 const TITLE = Symbol();
 const TEXT = Symbol();
+const ID = Symbol();
 
-const TITLE_MINLENGTH = 1;
-const TITLE_MAXLENGTH = 512;
-const TEXT_MINLENGTH = 1;
-const TEXT_MAXLENGTH = 1048576;
-
-export default class Buip extends Identifiable {
+export default class Buip {
 
     constructor(data) {
-        super(data);
+        this[ID] = data.id;
         this[TITLE] = data.title;
         this[TEXT] = data.text;
+    }
+
+    get id() {
+        return this[ID];
+    }
+
+    set id(id) {
+        validateId(id);
+        this[ID] = id;
     }
 
     get title() {
@@ -23,18 +28,7 @@ export default class Buip extends Identifiable {
     }
 
     set title(title) {
-        if (typeof title === 'undefined') {
-            throw new Error('A title is required.');
-        }
-        if (typeof title !== 'string') {
-            throw new Error('The title must be a string.');
-        }
-        if (title.length < TITLE_MINLENGTH) {
-            throw new Error('The title cannot be shorter than ' + TITLE_MINLENGTH + ' characters.');
-        }
-        if (title.length > TITLE_MAXLENGTH) {
-            throw new Error('The title cannot be longer than ' + TITLE_MAXLENGTH + ' characters.');
-        }
+        validateTitle(title);
         this[TITLE] = title;
     }
 
@@ -43,18 +37,7 @@ export default class Buip extends Identifiable {
     }
 
     set text(text) {
-        if (typeof text === 'undefined') {
-            throw new Error('A text is required.');
-        }
-        if (typeof text !== 'string') {
-            throw new Error('The text must be a string.');
-        }
-        if (text.length < TEXT_MINLENGTH) {
-            throw new Error('The text cannot be shorter than ' + TEXT_MINLENGTH + ' characters.');
-        }
-        if (text.length > TEXT_MAXLENGTH) {
-            throw new Error('The text cannot be longer than ' + TEXT_MAXLENGTH + ' characters.');
-        }
+        validateText(text);
         this[TEXT] = text;
     }
 

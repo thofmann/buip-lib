@@ -1,17 +1,24 @@
 'use strict';
 
-import Identifiable from './identifiable';
+import { validateId, validateName } from '../lib/validator';
 
+const ID = Symbol();
 const NAME = Symbol();
 
-const NAME_MINLENGTH = 1;
-const NAME_MAXLENGTH = 64;
-
-export default class Member extends Identifiable {
+export default class Member {
 
     constructor(data) {
-        super(data);
+        this[ID] = data.id;
         this[NAME] = data.name;
+    }
+
+    get id() {
+        return this[ID];
+    }
+
+    set id(id) {
+        validateId(id);
+        this[ID] = id;
     }
 
     get name() {
@@ -19,18 +26,7 @@ export default class Member extends Identifiable {
     }
 
     set name(name) {
-        if (typeof name === 'undefined') {
-            throw new Error('A name is required.');
-        }
-        if (typeof name !== 'string') {
-            throw new Error('The name must be a string.');
-        }
-        if (name.length < NAME_MINLENGTH) {
-            throw new Error('The name cannot be shorter than ' + NAME_MINLENGTH + ' characters.');
-        }
-        if (name.length > NAME_MAXLENGTH) {
-            throw new Error('The name cannot be longer than ' + NAME_MAXLENGTH + ' characters.');
-        }
+        validateName(name);
         this[NAME] = name;
     }
 
