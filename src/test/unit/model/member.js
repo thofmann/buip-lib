@@ -11,7 +11,7 @@ describe('Member', function() {
     beforeEach(function() {
 
         alice = new Member({
-            id: 0,
+            id: 1,
             name: 'Alice'
         });
 
@@ -20,7 +20,7 @@ describe('Member', function() {
     describe('#id', function() {
 
         it('should return the id', function() {
-            assert.strictEqual(alice.id, 0);
+            assert.strictEqual(alice.id, 1);
         });
 
         it('should require an id', function() {
@@ -41,18 +41,18 @@ describe('Member', function() {
             );
         });
 
-        it('should not accept a negative number', function() {
+        it('should not accept number less than 1', function() {
             assert.throws(
                 function() {
-                    alice.id = -1;
+                    alice.id = 0;
                 },
                 Error
             );
         });
 
         it('should be able to change the id', function() {
-            alice.id = 1;
-            assert.strictEqual(alice.id, 1);
+            alice.id = 2;
+            assert.strictEqual(alice.id, 2);
         });
 
     });
@@ -102,7 +102,7 @@ describe('Member', function() {
 
         it('should convert the member to a JSON object', function() {
             assert.deepEqual(alice.toJSON(), {
-                id: 0,
+                id: 1,
                 name: 'Alice'
             });
         });
@@ -113,10 +113,10 @@ describe('Member', function() {
 
         it('should create a Member from a JSON object', function() {
             alice = Member.fromJSON({
-                id: 1,
+                id: 2,
                 name: 'Bob'
             });
-            assert.strictEqual(alice.id, 1);
+            assert.strictEqual(alice.id, 2);
             assert.strictEqual(alice.name, 'Bob');
         });
 

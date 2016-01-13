@@ -11,7 +11,7 @@ describe('Buip', function() {
     beforeEach(function() {
 
         proposal = new Buip({
-            id: 0,
+            id: 1,
             title: 'Test BUIP: Please ignore',
             text: '*Insert BUIP here*'
         });
@@ -21,7 +21,7 @@ describe('Buip', function() {
     describe('#id', function() {
 
         it('should return the id', function() {
-            assert.strictEqual(proposal.id, 0);
+            assert.strictEqual(proposal.id, 1);
         });
 
         it('should require an id', function() {
@@ -42,18 +42,18 @@ describe('Buip', function() {
             );
         });
 
-        it('should not accept a negative number', function() {
+        it('should not accept number less than 1', function() {
             assert.throws(
                 function() {
-                    proposal.id = -1;
+                    proposal.id = 0;
                 },
                 Error
             );
         });
 
         it('should be able to change the id', function() {
-            proposal.id = 1;
-            assert.strictEqual(proposal.id, 1);
+            proposal.id = 2;
+            assert.strictEqual(proposal.id, 2);
         });
 
     });
@@ -146,7 +146,7 @@ describe('Buip', function() {
 
         it('should convert the BUIP to a JSON object', function() {
             assert.deepEqual(proposal.toJSON(), {
-                id: 0,
+                id: 1,
                 title: 'Test BUIP: Please ignore',
                 text: '*Insert BUIP here*'
             });
@@ -158,11 +158,11 @@ describe('Buip', function() {
 
         it('should create a BUIP from a JSON object', function() {
             proposal = Buip.fromJSON({
-                id: 1,
+                id: 2,
                 title: 'Test BUIP 2: Please ignore',
                 text: '*Insert BUIP 2 here*'
             });
-            assert.strictEqual(proposal.id, 1);
+            assert.strictEqual(proposal.id, 2);
             assert.strictEqual(proposal.title, 'Test BUIP 2: Please ignore');
             assert.strictEqual(proposal.text, '*Insert BUIP 2 here*');
         });

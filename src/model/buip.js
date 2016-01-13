@@ -9,9 +9,9 @@ const ID = Symbol();
 export default class Buip {
 
     constructor(data) {
-        this[ID] = data.id;
-        this[TITLE] = data.title;
-        this[TEXT] = data.text;
+        this.id = data.id;
+        this.title = data.title;
+        this.text = data.text;
     }
 
     get id() {

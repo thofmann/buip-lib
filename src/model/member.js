@@ -8,8 +8,8 @@ const NAME = Symbol();
 export default class Member {
 
     constructor(data) {
-        this[ID] = data.id;
-        this[NAME] = data.name;
+        this.id = data.id;
+        this.name = data.name;
     }
 
     get id() {

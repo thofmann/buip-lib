@@ -12,6 +12,11 @@ const TEXT_MAXLENGTH = 1048576;
 const NAME_MINLENGTH = 1;
 const NAME_MAXLENGTH = 64;
 
+const CHOICES = [
+    'accept',
+    'reject'
+];
+
 export function validateId(id) {
     if (typeof id === 'undefined') {
         throw new Error('An id is required.');
@@ -72,5 +77,17 @@ export function validateName(name) {
     }
     if (name.length > NAME_MAXLENGTH) {
         throw new Error('The name cannot be longer than ' + NAME_MAXLENGTH + ' characters.');
+    }
+}
+
+export function validateChoice(choice) {
+    if (typeof choice === 'undefined') {
+        throw new Error('A choice is required.');
+    }
+    if (typeof choice !== 'string') {
+        throw new Error('The choice must be a string.');
+    }
+    if (CHOICES.indexOf(choice) === -1) {
+        throw new Error('The choice must be one of the following: ' + CHOICES.join(', ') + '.');
     }
 }
