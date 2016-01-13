@@ -3,6 +3,10 @@
   "version": "0.0.1",
   "description": "A library for Bitcoin Unlimited Improvement Proposals",
   "main": "index.js",
+  "scripts": {
+    "postinstall": "grunt build",
+    "test": "grunt test"
+  },
   "repository": {
     "type": "git",
     "url": "git@github.com:thofmann/buip-lib.git"

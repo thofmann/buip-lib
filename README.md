@@ -1,5 +1,7 @@
 # buip-lib
 
+[![Build Status](https://travis-ci.org/thofmann/buip-lib.svg?branch=master)](https://travis-ci.org/thofmann/buip-lib)
+
 A library for Bitcoin Unlimited Improvement Proposals
 
 ## Developing
