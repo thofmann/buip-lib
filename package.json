@@ -1,0 +1,44 @@
+{
+  "name": "buip-lib",
+  "version": "0.0.1",
+  "description": "A library for Bitcoin Unlimited Improvement Proposals",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:thofmann/buip-lib.git"
+  },
+  "keywords": [
+    "bitcoin",
+    "unlimited",
+    "improvement",
+    "proposal",
+    "library",
+    "buip",
+    "lib"
+  ],
+  "contributors": [
+    {
+      "name": "Trevin Hofmann",
+      "email": "trevinhofmann@gmail.com"
+    },
+    {
+      "name": "awemany"
+    }
+  ],
+  "bugs": {
+    "url": "https://github.com/thofmann/buip-lib/issues"
+  },
+  "homepage": "https://github.com/thofmann/buip-lib#readme",
+  "devDependencies": {
+    "assert": "^1.3.0",
+    "grunt-mocha-test": "^0.12.7",
+    "mocha": "^2.3.4"
+  },
+  "dependencies": {
+    "babel-preset-es2015": "^6.3.13",
+    "grunt": "^0.4.5",
+    "grunt-babel": "^6.0.0",
+    "grunt-config-dir": "^0.3.2",
+    "grunt-contrib-watch": "^0.6.1"
+  }
+}
