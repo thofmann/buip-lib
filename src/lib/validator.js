@@ -12,6 +12,9 @@ const TEXT_MAXLENGTH = 1048576;
 const NAME_MINLENGTH = 1;
 const NAME_MAXLENGTH = 64;
 
+const TIMESTAMP_MIN = 1231006505;
+const TIMESTAMP_MAX_THRESHOLD = 60;
+
 const CHOICES = [
     'accept',
     'reject'
@@ -89,5 +92,25 @@ export function validateChoice(choice) {
     }
     if (CHOICES.indexOf(choice) === -1) {
         throw new Error('The choice must be one of the following: ' + CHOICES.join(', ') + '.');
+    }
+}
+
+export function validateTimestamp(timestamp) {
+    if (typeof timestamp === 'undefined') {
+        throw new Error('A timestamp is required.');
+    }
+    if (typeof timestamp !== 'number') {
+        throw new Error('The timestamp must be a number.');
+    }
+    if (timestamp % 1 !== 0) {
+        throw new Error('The timestamp must be an integer.');
+    }
+    let currentTimestamp = Math.floor(Date.now() / 1000);
+    let maxTimestamp = currentTimestamp + TIMESTAMP_MAX_THRESHOLD;
+    if (timestamp < TIMESTAMP_MIN) {
+        throw new Error('The timestamp cannot be less than ' + TIMESTAMP_MIN + '.');
+    }
+    if (timestamp > maxTimestamp) {
+        throw new Error('The timestamp cannot be more than ' + TIMESTAMP_MAX_THRESHOLD + ' seconds past the current time.');
     }
 }

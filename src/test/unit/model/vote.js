@@ -83,10 +83,10 @@ describe('Vote', function() {
             );
         });
 
-        it('should not accept a negative number', function() {
+        it('should not accept a number less than 1', function() {
             assert.throws(
                 function() {
-                    vote.buipId = -1;
+                    vote.buipId = 0;
                 },
                 Error
             );
@@ -123,10 +123,10 @@ describe('Vote', function() {
             );
         });
 
-        it('should not accept a negative number', function() {
+        it('should not accept a number less than 1', function() {
             assert.throws(
                 function() {
-                    vote.memberId = -1;
+                    vote.memberId = 0;
                 },
                 Error
             );

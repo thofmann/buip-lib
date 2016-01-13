@@ -1,15 +1,17 @@
 'use strict';
 
-import { validateId, validateName } from '../lib/validator';
+import { validateId, validateName, validateTimestamp } from '../lib/validator';
 
 const ID = Symbol();
 const NAME = Symbol();
+const JOIN_TIMESTAMP = Symbol();
 
 export default class Member {
 
     constructor(data) {
         this.id = data.id;
         this.name = data.name;
+        this.joinTimestamp = data.joinTimestamp;
     }
 
     get id() {
@@ -30,10 +32,20 @@ export default class Member {
         this[NAME] = name;
     }
 
+    get joinTimestamp() {
+        return this[JOIN_TIMESTAMP];
+    }
+
+    set joinTimestamp(joinTimestamp) {
+        validateTimestamp(joinTimestamp);
+        this[JOIN_TIMESTAMP] = joinTimestamp;
+    }
+
     toJSON() {
         return {
             id: this.id,
-            name: this.name
+            name: this.name,
+            joinTimestamp: this.joinTimestamp
         }
     }
 

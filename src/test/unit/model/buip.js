@@ -42,7 +42,7 @@ describe('Buip', function() {
             );
         });
 
-        it('should not accept number less than 1', function() {
+        it('should not accept a number less than 1', function() {
             assert.throws(
                 function() {
                     proposal.id = 0;
